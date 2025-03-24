@@ -70,3 +70,117 @@ Suivre les instructions dans le terminal :
   ```
 
 ---
+
+Voici **étape par étape** comment configurer **Jest** pour tester ton code, et **ESLint** pour analyser ton style de code (avec les règles demandées dans ton projet Holberton).
+
+---
+
+## 🧪 1. **Configurer Jest pour tester ton code**
+
+### 📦 Installation (dans le dossier du projet)
+Si ce n’est pas déjà fait :
+```bash
+npm install --save-dev jest babel-jest @babel/core @babel/preset-env
+```
+
+---
+
+### ⚙️ Crée le fichier `babel.config.js` à la racine du dossier (`ES6_basic`) :
+
+```js
+module.exports = {
+  presets: [['@babel/preset-env', { targets: { node: 'current' } }]],
+};
+```
+
+---
+
+### ✅ Test d’un fichier — crée `0-constants.test.js`
+
+```js
+import { taskFirst, taskNext } from './0-constants.js';
+
+test('taskFirst returns expected value', () => {
+  expect(taskFirst()).toBe('I prefer const when I can.');
+});
+
+test('taskNext returns expected value', () => {
+  expect(taskNext()).toBe('But sometimes let is okay');
+});
+```
+
+---
+
+### 🧪 Lance tes tests avec :
+
+```bash
+npm test
+```
+
+---
+
+## 🧹 2. **Configurer ESLint pour analyser ton code**
+
+### 📦 Installation :
+```bash
+npm install --save-dev eslint
+```
+
+---
+
+### ⚙️ Crée le fichier `.eslintrc.js` (dans le même dossier que `0-constants.js`) :
+
+```js
+module.exports = {
+  env: {
+    browser: false,
+    es2021: true,
+    node: true,
+    jest: true,
+  },
+  extends: ['eslint:recommended'],
+  parserOptions: {
+    ecmaVersion: 12,
+    sourceType: 'module',
+  },
+  rules: {
+    // Tu peux ajouter ici les règles spécifiques à Holberton si elles sont données
+  },
+};
+```
+
+---
+
+### 📂 Si tu veux analyser ton code :
+
+```bash
+npx eslint 0-constants.js
+```
+
+---
+
+## 📄 Exemple complet de `package.json`
+
+```json
+{
+  "type": "module",
+  "scripts": {
+    "dev": "node 0-main.js",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "babel-jest": "^29.7.0",
+    "eslint": "^9.23.0",
+    "jest": "^29.7.0"
+  }
+}
+```
+
+- `npm test` → pour exécuter tes tests
+- `npm run lint` → pour analyser tous les fichiers `.js` du dossier
+
+---
+
