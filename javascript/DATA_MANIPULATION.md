@@ -520,3 +520,114 @@ new Map([
 ```
 
 ---
+
+# 🎓 Cours JavaScript : `.set()` et la structure `Map`
+
+---
+
+## 🔹 Qu’est-ce qu’une `Map` ?
+
+La **`Map`** est une **structure de données introduite en ES6 (ECMAScript 2015)**. C’est un objet spécial qui associe des **clés à des valeurs**, un peu comme un objet `{}`, mais avec **plus de souplesse** et de **performances améliorées**.
+
+---
+
+## 🧱 Syntaxe de base de `.set()`
+
+```javascript
+map.set(clé, valeur)
+```
+
+- `clé` : n’importe quel type de données (chaîne, nombre, objet, etc.)
+- `valeur` : valeur associée à la clé
+- **Retourne** la Map elle-même (ce qui permet le chaînage)
+
+---
+
+## 🧪 Exemple simple
+
+```javascript
+const map = new Map();
+
+map.set('pomme', 3);
+map.set('banane', 5);
+map.set('kiwi', 1);
+
+console.log(map);
+// Map { 'pomme' => 3, 'banane' => 5, 'kiwi' => 1 }
+```
+
+---
+
+## 🔁 Clés de tout type
+
+Contrairement à un objet `{}`, une `Map` accepte **n’importe quel type de clé** :
+
+```javascript
+const map = new Map();
+
+map.set('nom', 'Alice');         // chaîne
+map.set(42, 'réponse');          // nombre
+map.set(true, 'oui');            // booléen
+map.set({ id: 1 }, 'objet clé'); // objet
+
+console.log(map.get(42));        // "réponse"
+```
+
+---
+
+## 🔄 Mise à jour d'une valeur
+
+Si tu fais un `.set()` sur une clé **déjà existante**, la valeur est **mise à jour** :
+
+```javascript
+map.set('pomme', 10); // modifie la quantité de pommes
+```
+
+---
+
+## 🔗 Chaînage
+
+La méthode `.set()` retourne la Map, donc tu peux enchaîner les appels :
+
+```javascript
+const map = new Map()
+  .set('tomate', 2)
+  .set('carotte', 3)
+  .set('poireau', 1);
+```
+
+---
+
+## 📘 Comparaison avec un objet `{}`
+
+| Caractéristique         | `Map`                   | Objet `{}`              |
+|-------------------------|-------------------------|--------------------------|
+| Type de clé             | **Tous types**          | Uniquement chaînes/symboles |
+| Ordre d'insertion       | **Préservé**            | Non garanti             |
+| Taille (`size`)         | `.size`                 | `Object.keys(obj).length` |
+| Méthode d’ajout         | `.set(clé, valeur)`     | `obj[clé] = valeur`     |
+| Itérable directement    | ✅ Oui                  | ❌ Non, sauf avec `Object.entries()` |
+
+---
+
+## 🛠️ Méthodes associées utiles
+
+| Méthode      | Rôle |
+|--------------|------|
+| `.set(k, v)` | Ajoute ou met à jour une entrée |
+| `.get(k)`    | Récupère la valeur associée à `k` |
+| `.has(k)`    | Vérifie si la clé `k` existe |
+| `.delete(k)` | Supprime l’entrée de clé `k` |
+| `.clear()`   | Vide complètement la Map |
+| `.size`      | Nombre d’éléments dans la Map |
+
+---
+
+## ✅ Résumé
+
+- `.set()` est la méthode principale pour **ajouter ou modifier une entrée** dans une `Map`.
+- Elle accepte **n’importe quel type de clé**.
+- Elle retourne la `Map` elle-même (permettant le chaînage).
+- Les `Map` sont **plus puissantes et flexibles** que les objets `{}` classiques pour les structures associatives.
+
+---
