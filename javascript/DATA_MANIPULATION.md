@@ -487,3 +487,36 @@ console.log(nouveau);  // [1, 2, 3]
 | Alternatives           | `unshift()` (début), `[...arr, x]` (copie) |
 
 ---
+
+## ✅ Objectif
+Créer une fonction `groceriesList` qui retourne une **`Map`** avec des paires (nom, quantité) de produits alimentaires :
+
+| Nom       | Quantité |
+|-----------|----------|
+| Apples    | 10       |
+| Tomatoes  | 10       |
+| Pasta     | 1        |
+| Rice      | 1        |
+| Banana    | 5        |
+
+---
+
+### 🔸 `Map` en JavaScript :
+Une **Map** est une structure de données **clé → valeur** introduite par ES6.
+
+Contrairement aux objets `{}`, une `Map` :
+- Peut avoir **des clés de tout type**
+- **Garde l’ordre d’insertion**
+- Est **plus performante** pour certaines opérations
+
+### 🔸 Création d’une Map :
+Tu peux initialiser une `Map` à partir d’un tableau contenant des sous-tableaux `[clé, valeur]`.
+
+```javascript
+new Map([
+  ['clé1', valeur1],
+  ['clé2', valeur2]
+])
+```
+
+---
