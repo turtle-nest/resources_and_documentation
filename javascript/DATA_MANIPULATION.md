@@ -282,3 +282,128 @@ Ici, `every()` vérifie que **chaque élément de `arr` est contenu dans `mySet`
 | `Set` + `every()` | Puissant pour vérifier qu’un ensemble de valeurs est inclus dans un autre |
 
 ---
+
+# 🎓 Cours : `join()`, `startsWith()` et `slice()`
+
+---
+
+## 🔹 1. `join()` — méthode des tableaux
+
+### 📌 Définition :
+`join()` est une méthode des **tableaux** qui permet de **fusionner tous les éléments** d’un tableau en **une seule chaîne de caractères**, en les séparant par un **séparateur** que tu choisis.
+
+### 🧱 Syntaxe :
+```javascript
+array.join(separator)
+```
+
+- `separator` est **optionnel**. Par défaut, c’est une **virgule (`,`)**.
+
+---
+
+### 🎯 Exemples :
+```javascript
+const fruits = ['pomme', 'banane', 'kiwi'];
+
+console.log(fruits.join());         // "pomme,banane,kiwi"
+console.log(fruits.join(' - '));    // "pomme - banane - kiwi"
+console.log(fruits.join(''));       // "pommebananekiwis"
+```
+
+---
+
+### 💡 Astuce :
+Très utile pour convertir un tableau en chaîne, par exemple pour afficher une liste ou générer une URL.
+
+---
+
+## 🔹 2. `startsWith()` — méthode des chaînes
+
+### 📌 Définition :
+`startsWith()` permet de **tester si une chaîne commence** par un certain texte (préfixe). Elle retourne un **booléen** (`true` ou `false`).
+
+### 🧱 Syntaxe :
+```javascript
+string.startsWith(searchString[, position])
+```
+
+- `searchString` : la chaîne à rechercher.
+- `position` : position facultative à partir de laquelle commencer la recherche (par défaut 0).
+
+---
+
+### 🎯 Exemples :
+```javascript
+const phrase = "Bonjour tout le monde";
+
+console.log(phrase.startsWith("Bon"));     // true
+console.log(phrase.startsWith("jour"));    // false
+console.log(phrase.startsWith("tout", 7)); // true
+```
+
+---
+
+### 💡 Astuce :
+Très utile pour filtrer des chaînes de texte ou des éléments dans un tableau.
+
+---
+
+## 🔹 3. `slice()` — méthode des chaînes ET des tableaux
+
+### 📌 Définition :
+`slice()` retourne une **copie d’une portion** de chaîne ou de tableau, **sans modifier l’original**.
+
+### 🧱 Syntaxe pour une chaîne :
+```javascript
+string.slice(beginIndex[, endIndex])
+```
+
+- `beginIndex` : indice de début (inclus).
+- `endIndex` : indice de fin (exclu). Si absent, va jusqu’à la fin.
+
+---
+
+### 🧱 Syntaxe pour un tableau :
+```javascript
+array.slice(begin[, end])
+```
+
+---
+
+### 🎯 Exemples avec des chaînes :
+```javascript
+const mot = "banane";
+
+console.log(mot.slice(1));      // "anane"
+console.log(mot.slice(0, 3));   // "ban"
+console.log(mot.slice(-2));     // "ne"
+```
+
+---
+
+### 🎯 Exemples avec des tableaux :
+```javascript
+const nombres = [10, 20, 30, 40];
+
+console.log(nombres.slice(1));     // [20, 30, 40]
+console.log(nombres.slice(1, 3));  // [20, 30]
+console.log(nombres.slice(-2));   // [30, 40]
+```
+
+---
+
+### 💡 Astuce :
+- Avec les chaînes : utile pour **supprimer un préfixe ou suffixe**
+- Avec les tableaux : permet de **copier** ou **extraire** une partie du tableau
+
+---
+
+## ✅ Résumé rapide
+
+| Méthode       | Type       | Usage principal                             |
+|---------------|------------|---------------------------------------------|
+| `join()`      | Tableau    | Fusionne les éléments en une chaîne         |
+| `startsWith()`| Chaîne     | Vérifie le début d’une chaîne               |
+| `slice()`     | Chaîne / Tableau | Extrait une portion sans modifier l’original |
+
+---
