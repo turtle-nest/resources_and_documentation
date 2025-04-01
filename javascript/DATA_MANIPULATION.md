@@ -631,3 +631,113 @@ const map = new Map()
 - Les `Map` sont **plus puissantes et flexibles** que les objets `{}` classiques pour les structures associatives.
 
 ---
+
+## Comprendre la **différence entre** :
+
+- `export default`
+- `export` (aussi appelé **named export**)
+
+Et comment les **importer correctement**.
+
+---
+
+## 🟢 1. **`export default`** — Exportation par défaut
+
+### 📌 Définition :
+C’est **l’élément principal** exporté par un fichier.  
+Un seul `export default` est autorisé **par fichier**.
+
+### ✅ Exemple :
+
+```js
+// utils.js
+export default function uploadPhoto() {
+  return 'photo uploaded';
+}
+```
+
+### ✅ Import :
+
+```js
+// autre fichier
+import uploadPhoto from './utils.js';
+```
+
+📌 ➤ On peut lui donner **le nom qu’on veut** (mais par convention on garde le même).
+
+---
+
+## 🟠 2. **`named export`** — Exportation nommée
+
+### 📌 Définition :
+Permet d’**exporter plusieurs éléments** dans le même fichier (fonctions, constantes, classes…).
+
+### ✅ Exemple :
+
+```js
+// utils.js
+export function createUser() {
+  return 'user created';
+}
+
+export const API_URL = 'https://...';
+```
+
+### ✅ Import :
+
+```js
+// autre fichier
+import { createUser, API_URL } from './utils.js';
+```
+
+📌 ➤ **Les noms doivent correspondre exactement** à ceux utilisés lors de l’export.
+
+---
+
+## 🔁 Combiner les deux (⚠️ possible mais à utiliser avec modération)
+
+```js
+// utils.js
+export default function uploadPhoto() {
+  return 'photo';
+}
+
+export function createUser() {
+  return 'user';
+}
+```
+
+### ✅ Import combiné :
+
+```js
+import uploadPhoto, { createUser } from './utils.js';
+```
+
+---
+
+## ❌ Erreurs fréquentes
+
+| Mauvais code | Pourquoi c’est faux ? |
+|--------------|------------------------|
+| `import { uploadPhoto }` d’un `export default` | ❌ On ne met pas `{}` pour un `default` |
+| `import createUser from './utils.js'` si c’est un `named export` | ❌ Pas de `default` → il faut des `{}` |
+
+---
+
+## 📌 Récapitulatif visuel
+
+| Export             | Syntaxe export                        | Syntaxe import                          |
+|--------------------|----------------------------------------|------------------------------------------|
+| `default`          | `export default function ...`          | `import nom from './...'`               |
+| `named`            | `export function nom() {}`             | `import { nom } from './...'`           |
+| `les deux combinés`| `export default` + `export { ... }`   | `import defaut, { nom } from './...'`   |
+
+---
+
+## 🎯 À retenir
+
+- ✔️ `export default` → un seul par fichier, sans `{}` à l'import
+- ✔️ `named export` → plusieurs possibles, avec `{}` à l'import
+- ❗ Tu ne peux pas utiliser deux `export default` dans un même fichier
+
+---
