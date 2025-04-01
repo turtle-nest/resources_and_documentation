@@ -407,3 +407,83 @@ console.log(nombres.slice(-2));   // [30, 40]
 | `slice()`     | Chaîne / Tableau | Extrait une portion sans modifier l’original |
 
 ---
+
+# 🧠 Cours : `push()` en JavaScript
+
+---
+
+## 🔹 Qu’est-ce que `.push()` ?
+
+La méthode **`push()`** est une **méthode native des tableaux** en JavaScript. Elle permet **d’ajouter un ou plusieurs éléments à la fin d’un tableau**.
+
+C’est l’équivalent d’un "append" dans d’autres langages comme Python.
+
+---
+
+## 🧱 Syntaxe
+
+```javascript
+array.push(element1, element2, ..., elementN)
+```
+
+- Tu peux ajouter **un ou plusieurs éléments** à la fois.
+- La méthode retourne **la nouvelle longueur** du tableau après l’ajout.
+
+---
+
+## 🎯 Exemples
+
+### 🔸 Ajouter un élément
+```javascript
+const fruits = ['pomme', 'banane'];
+fruits.push('kiwi');
+
+console.log(fruits); // ["pomme", "banane", "kiwi"]
+```
+
+### 🔸 Ajouter plusieurs éléments
+```javascript
+const nombres = [1, 2];
+const nouvelleLongueur = nombres.push(3, 4, 5);
+
+console.log(nombres);         // [1, 2, 3, 4, 5]
+console.log(nouvelleLongueur); // 5
+```
+
+---
+
+## 🔎 Différence avec `unshift()`
+
+| Méthode     | Ajoute où ?    | Exemples |
+|-------------|----------------|----------|
+| `push()`    | **À la fin**   | `[1, 2].push(3) → [1, 2, 3]` |
+| `unshift()` | **Au début**   | `[1, 2].unshift(0) → [0, 1, 2]` |
+
+---
+
+## ⚠️ Attention
+
+- `push()` **modifie directement le tableau** d'origine (c’est une méthode *mutative*).
+- Si tu veux créer un **nouveau tableau**, utilise l’opérateur **spread** `[...tableau, nouvelElement]`.
+
+```javascript
+const original = [1, 2];
+const nouveau = [...original, 3];
+
+console.log(original); // [1, 2]
+console.log(nouveau);  // [1, 2, 3]
+```
+
+---
+
+## ✅ Résumé
+
+| Point clé              | Détail                                      |
+|------------------------|---------------------------------------------|
+| Type                   | Méthode de tableau                          |
+| Rôle                   | Ajouter à la **fin** du tableau             |
+| Retourne               | La **nouvelle longueur** du tableau         |
+| Altère le tableau ?    | **Oui**                                     |
+| Alternatives           | `unshift()` (début), `[...arr, x]` (copie) |
+
+---
