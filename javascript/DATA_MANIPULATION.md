@@ -163,3 +163,122 @@ JavaScript offre de **nombreuses structures et outils puissants** pour manipuler
 - `Set`, `Map`, `WeakMap` : pour des cas spécifiques où **l’unicité**, la **souplesse des clés** ou la **confidentialité** sont nécessaires.
 
 ---
+
+# 🌟 Les `Set` et la méthode `every()` en JavaScript
+
+---
+
+## 🔹 Partie 1 : Le type `Set`
+
+### 📌 Qu’est-ce qu’un `Set` ?
+Un **`Set`** est une **structure de données introduite avec ES6** (ECMAScript 2015). Il permet de stocker **des valeurs uniques** de tout type (primitif ou objet).
+
+---
+
+### 🧱 Caractéristiques principales :
+- Les éléments **ne sont jamais dupliqués**.
+- L’ordre d’insertion est conservé.
+- Tu peux y ajouter, supprimer, ou vérifier la présence d’un élément.
+
+---
+
+### 📘 Création d’un `Set`
+```javascript
+const mySet = new Set();
+```
+
+Ou à partir d’un tableau :
+```javascript
+const mySet = new Set([1, 2, 3, 3, 4]);
+// Résultat : Set { 1, 2, 3, 4 }
+```
+
+---
+
+### 🔧 Méthodes utiles
+
+| Méthode             | Description |
+|---------------------|-------------|
+| `add(value)`        | Ajoute une valeur |
+| `delete(value)`     | Supprime une valeur |
+| `has(value)`        | Retourne `true` si la valeur est présente |
+| `clear()`           | Vide entièrement le set |
+| `size`              | Retourne le nombre d’éléments |
+
+---
+
+### 🎯 Exemples pratiques
+```javascript
+const numbers = new Set();
+
+numbers.add(1);
+numbers.add(2);
+numbers.add(2); // ignoré
+
+console.log(numbers); // Set { 1, 2 }
+console.log(numbers.has(2)); // true
+console.log(numbers.size); // 2
+numbers.delete(1);
+console.log(numbers); // Set { 2 }
+```
+
+---
+
+## 🔹 Partie 2 : La méthode `every()`
+
+### 📌 Qu’est-ce que `every()` ?
+`every()` est une **méthode d’itération** propre aux **tableaux**. Elle permet de tester si **tous les éléments** d’un tableau passent un test (fonction).
+
+---
+
+### 🧱 Syntaxe
+```javascript
+array.every(callback(element[, index[, array]])[, thisArg])
+```
+
+- `callback` → fonction qui retourne un booléen (`true` ou `false`)
+- `every()` retourne `true` **seulement si tous les éléments** passent le test.
+
+---
+
+### 🎯 Exemple simple
+```javascript
+const ages = [21, 25, 30, 40];
+
+const allAdults = ages.every((age) => age >= 18);
+console.log(allAdults); // true
+```
+
+Un seul élément qui ne passe pas = résultat `false`.
+
+```javascript
+const ages = [21, 17, 30, 40];
+const allAdults = ages.every((age) => age >= 18);
+console.log(allAdults); // false
+```
+
+---
+
+## 🔗 Exemple combiné : `Set` + `every()`
+```javascript
+const mySet = new Set([1, 2, 3, 4, 5]);
+const arr = [2, 4];
+
+const result = arr.every((value) => mySet.has(value));
+console.log(result); // true
+```
+
+Ici, `every()` vérifie que **chaque élément de `arr` est contenu dans `mySet`** via `set.has()`.
+
+---
+
+## ✅ Résumé
+
+| Notion | À retenir |
+|--------|-----------|
+| `Set` | Structure de données contenant **des éléments uniques** |
+| `add()` / `delete()` / `has()` | Principales méthodes pour manipuler un Set |
+| `every()` | Méthode des tableaux, retourne `true` si **tous** les éléments satisfont une condition |
+| `Set` + `every()` | Puissant pour vérifier qu’un ensemble de valeurs est inclus dans un autre |
+
+---
