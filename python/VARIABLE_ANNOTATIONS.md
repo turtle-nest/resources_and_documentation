@@ -49,7 +49,7 @@ Le module `typing` permet d’annoter des structures plus complexes.
 ### Importation :
 
 ```python
-from typing import List, Dict, Tuple, Optional, Union
+from typing import List, Dict, Tuple, Optional, Union, Callable
 ```
 
 ### Exemples :
