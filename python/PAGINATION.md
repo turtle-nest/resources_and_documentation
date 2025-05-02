@@ -210,7 +210,3 @@ print(page2)
 - Utilise **cursor-based** si tu dois gérer beaucoup de suppressions ou un grand nombre de mises à jour.
 
 ---
-
-Veux-tu que je te prépare aussi :
-- Un **exemple Flask** avec une API REST paginée ?
-- Ou un **exemple Django** avec la pagination native de Django REST Framework ?
