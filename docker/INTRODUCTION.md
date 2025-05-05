@@ -158,3 +158,62 @@ docker-compose up --build
 * 🛠️ [Utiliser Portainer pour gérer tes conteneurs via une interface web](https://www.portainer.io/)
 
 ---
+Une **image Docker** est un **modèle figé et exécutable** qui contient tout ce qu’il faut pour faire tourner une application : le **code source**, les **bibliothèques**, les **dépendances**, les **outils système** et les **fichiers de configuration**.
+
+On peut la comparer à une **photo d’un environnement prêt à l’emploi**. Elle est utilisée pour **créer des conteneurs**, qui sont comme des instances en cours d’exécution de cette image.
+
+---
+
+### 🔸 Métaphore simple :
+
+Imagine que tu veux faire une pizza 🍕 :
+
+* L’**image Docker**, c’est la **recette précise** : ingrédients, quantités, étapes.
+* Le **conteneur Docker**, c’est la **pizza cuisinée** selon cette recette.
+* Tu peux refaire autant de pizzas que tu veux à partir de cette même image.
+
+---
+
+### 🔸 Caractéristiques principales d’une image Docker :
+
+* ✅ **Immuable** : une fois construite, elle ne change pas.
+* 🧱 **Empilée par couches** : chaque commande dans un `Dockerfile` crée une **nouvelle couche** de l’image (ex. : `FROM`, `COPY`, `RUN`…).
+* 🔄 **Réutilisable** : les couches communes sont partagées entre images pour éviter les doublons (et accélérer les builds).
+* 📦 **Versionnée** : chaque image peut avoir un tag (ex. `python:3.8`, `nginx:latest`).
+
+---
+
+### 🔸 Exemple d’image :
+
+Prenons l’image officielle `python:3.9-slim` :
+
+* Elle contient une **distribution minimale de Linux**, avec **Python 3.9** installé.
+* Elle sert de **base** pour créer des images personnalisées pour tes projets Python.
+
+---
+
+### 🔸 Comment la créer ?
+
+Avec un **Dockerfile**, comme ici :
+
+```Dockerfile
+FROM python:3.9-slim
+COPY . /app
+WORKDIR /app
+RUN pip install -r requirements.txt
+CMD ["python", "app.py"]
+```
+
+Et on la construit avec :
+
+```bash
+docker build -t mon_app_python .
+```
+
+Tu obtiens alors une **image appelée `mon_app_python`**, prête à être lancée avec :
+
+```bash
+docker run mon_app_python
+```
+
+---
