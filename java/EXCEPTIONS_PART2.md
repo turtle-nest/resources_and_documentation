@@ -1,41 +1,38 @@
-# 🧨 **Exceptions personnalisées en Java**
+# 🧨 Tutoriel : Exceptions personnalisées en Java
 
 ---
 
-## 🧠 Pourquoi créer ses propres exceptions ?
+## 🔍 1. Pourquoi créer ses propres exceptions ?
 
-Java fournit déjà beaucoup d’exceptions standards (`NullPointerException`, `IOException`, etc.), mais il peut être utile de **créer tes propres exceptions** lorsque :
+Java propose déjà de nombreuses exceptions standard (comme `NullPointerException`, `IOException`, etc.). Pourtant, dans un projet réel, il peut être utile de créer **ses propres exceptions personnalisées**, notamment pour :
 
-* tu veux **donner plus de sens** à une erreur spécifique dans ton application
-* tu veux **simplifier le traitement** d’erreurs métier récurrentes
-* tu veux **clarifier le code** pour toi ou d'autres développeurs
+* **Nommer précisément** les erreurs spécifiques à ton domaine métier (ex. `CompteInexistantException`)
+* **Rendre le code plus clair** et lisible pour toi et tes coéquipiers
+* **Séparer la logique métier des erreurs techniques**
+* Permettre un **traitement d’erreurs ciblé** (grâce au nom de la classe)
 
----
-
-## ✅ Exemple de cas métier
-
-Tu développes un site de réservation de billets. Tu pourrais créer des exceptions comme :
-
-* `SeatAlreadyReservedException`
-* `InvalidDateRangeException`
-* `NotEnoughBalanceException`
+💡 C’est aussi une **bonne pratique recommandée** dans tous les projets Java bien structurés.
 
 ---
 
-## 🔧 Comment créer une **exception vérifiée** (checked) ?
+## 🛠️ 2. Comment créer une **exception personnalisée** ?
 
-Une **exception vérifiée** oblige le développeur à la **gérer avec `try/catch` ou `throws`**.
+Une **exception personnalisée** est simplement une **classe Java** qui **hérite d'une classe d’exception existante**, comme :
 
-### ✅ Étapes :
+* `Exception` → pour une **exception vérifiée** (*checked*)
+* `RuntimeException` → pour une **exception non vérifiée** (*unchecked*)
 
-1. Créer une classe qui **hérite de `Exception`**
-2. Ajouter un constructeur avec un message
+---
+
+## ✅ 3. Créer une **exception vérifiée** (checked)
+
+Les **checked exceptions** doivent être **gérées** (`try/catch`) ou **déclarées** avec `throws`.
 
 ### ✍️ Exemple :
 
 ```java
-public class InvalidInputException extends Exception {
-    public InvalidInputException(String message) {
+public class SoldeInsuffisantException extends Exception {
+    public SoldeInsuffisantException(String message) {
         super(message);
     }
 }
@@ -44,32 +41,27 @@ public class InvalidInputException extends Exception {
 ### 💡 Utilisation :
 
 ```java
-public class Calculator {
-    public static int divide(int a, int b) throws InvalidInputException {
-        if (b == 0) {
-            throw new InvalidInputException("Division par zéro interdite !");
+public class Banque {
+    public void retirer(double montant) throws SoldeInsuffisantException {
+        if (montant > 1000) {
+            throw new SoldeInsuffisantException("Montant trop élevé !");
         }
-        return a / b;
+        System.out.println("Retrait autorisé.");
     }
 }
 ```
 
 ---
 
-## ⚠️ Comment créer une **exception non vérifiée** (unchecked) ?
+## ❌ 4. Créer une **exception non vérifiée** (unchecked)
 
-Les **exceptions non vérifiées** ne sont **pas obligatoires à gérer**, mais elles peuvent interrompre ton programme si non traitées.
-
-### ✅ Étapes :
-
-1. Créer une classe qui **hérite de `RuntimeException`**
-2. Ajouter un constructeur
+Les **unchecked exceptions** ne sont **pas obligatoires** à gérer avec `try/catch`. Elles sont souvent utilisées pour les erreurs **programmatiques** (ex : division par zéro, argument invalide...).
 
 ### ✍️ Exemple :
 
 ```java
-public class NegativeValueException extends RuntimeException {
-    public NegativeValueException(String message) {
+public class ValeurNegativeException extends RuntimeException {
+    public ValeurNegativeException(String message) {
         super(message);
     }
 }
@@ -78,51 +70,106 @@ public class NegativeValueException extends RuntimeException {
 ### 💡 Utilisation :
 
 ```java
-public class Square {
-    public static double area(double side) {
-        if (side < 0) {
-            throw new NegativeValueException("La valeur ne peut pas être négative !");
+public class MathUtils {
+    public static int racineCarree(int x) {
+        if (x < 0) {
+            throw new ValeurNegativeException("Impossible de calculer la racine d’un nombre négatif !");
         }
-        return side * side;
+        return (int) Math.sqrt(x);
     }
 }
 ```
 
 ---
 
-## 🧪 Exemple complet avec test
+## 🧪 5. Utiliser une exception personnalisée
+
+Tu peux utiliser tes exceptions comme n'importe quelle autre :
 
 ```java
 public class Program {
     public static void main(String[] args) {
         try {
-            int result = Calculator.divide(10, 0);
-            System.out.println(result);
-        } catch (InvalidInputException e) {
+            Banque banque = new Banque();
+            banque.retirer(1500);
+        } catch (SoldeInsuffisantException e) {
             System.out.println("Erreur : " + e.getMessage());
         }
 
-        double aire = Square.area(-5); // non vérifiée, pas de try/catch requis
-        System.out.println(aire);
+        int result = MathUtils.racineCarree(9); // ok
+        System.out.println("Résultat : " + result);
+
+        result = MathUtils.racineCarree(-1); // déclenche exception non vérifiée
     }
 }
 ```
 
+📝 Résultat :
+
+```
+Erreur : Montant trop élevé !
+Résultat : 3
+Exception in thread "main" ValeurNegativeException: Impossible de calculer...
+```
+
 ---
 
-## 🔍 Résumé
+## 📌 6. Bonnes pratiques à suivre
 
-| Type d’exception | Classe parente     | Obligatoire à gérer ? | Exemple de classe        |
-| ---------------- | ------------------ | --------------------- | ------------------------ |
-| **Checked**      | `Exception`        | ✅ Oui                 | `InvalidInputException`  |
-| **Unchecked**    | `RuntimeException` | ❌ Non                 | `NegativeValueException` |
+✅ Recommandées :
+
+* Nom explicite en `PascalCase`, finissant souvent par `Exception`
+* Ajouter au minimum un **constructeur avec message**
+* Hériter de `Exception` pour les erreurs métier **attendues**
+* Hériter de `RuntimeException` pour les erreurs **de logique programmative**
+* Éviter les exceptions vides (sans message)
+
+❌ À éviter :
+
+* Utiliser `Exception` ou `Throwable` de manière générique
+* Lancer des exceptions sans message
+* Abuser des checked exceptions pour tout (cela rend le code verbeux)
 
 ---
 
-## 🧩 Bonnes pratiques
+## 📚 Résumé
 
-* Préfère des **noms explicites** : `FileTooLargeException`, `EmptyNameException`, etc.
-* Étends **`Exception`** pour forcer la gestion (`try/catch`)
-* Étends **`RuntimeException`** si l’erreur est rare mais fatale (ex : fail-fast)
+| Exception                   | Classe parente     | Gérée obligatoirement ?   | Usage typique                         |
+| --------------------------- | ------------------ | ------------------------- | ------------------------------------- |
+| `SoldeInsuffisantException` | `Exception`        | ✅ Oui (`try` ou `throws`) | Erreur métier attendue                |
+| `ValeurNegativeException`   | `RuntimeException` | ❌ Non                     | Vérification de logique ou invalidité |
+
+---
+
+## ✅ Exemple final de structure
+
+```java
+// Fichier : SoldeInsuffisantException.java
+public class SoldeInsuffisantException extends Exception {
+    public SoldeInsuffisantException(String message) {
+        super(message);
+    }
+}
+
+// Fichier : Banque.java
+public class Banque {
+    public void retirer(double montant) throws SoldeInsuffisantException {
+        if (montant > 1000) {
+            throw new SoldeInsuffisantException("Montant trop élevé !");
+        }
+    }
+}
+
+// Fichier : Program.java
+public class Program {
+    public static void main(String[] args) {
+        try {
+            new Banque().retirer(1500);
+        } catch (SoldeInsuffisantException e) {
+            System.out.println("Erreur bancaire : " + e.getMessage());
+        }
+    }
+}
+```
 
 ---
